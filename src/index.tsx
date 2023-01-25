@@ -4,6 +4,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import ThemeProvider from './context/ThemeProvider'
 
 if (window.indexedDB) {
   let request = window.indexedDB.open("tiendaDatabase", 4)
@@ -20,7 +21,9 @@ if (window.indexedDB) {
 
   ReactDOM.render(
     <React.StrictMode>
-    <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
   );

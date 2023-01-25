@@ -5,7 +5,7 @@ const initialState = {
   carrito: 0,
   productos: []
 }
-const ThemeContext = React.createContext();
+export const ThemeContext = React.createContext();
 
 const context = {
   initialState: initialState,

@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react';
-import { IonButton } from '@ionic/react';
-import { useHistory } from "react-router-dom";
+import { ChangeEvent,  useContext, useState } from 'react'
+import { IonButton } from '@ionic/react'
+import { useHistory } from "react-router-dom"
 
-import './Acceso.css';
+import './Acceso.css'
 import user from './user.png'
 import context from '../../context/ThemeContext'
 
@@ -23,12 +23,12 @@ function Acceso() {
       alert("Datos Incorrectos")
     }
   }
-  const handleInputChange = e => setAcceso({ ...acceso, [e.target.name] : e.target.value })
+  const handleInputChange = (e:ChangeEvent<HTMLInputElement>) => setAcceso({ ...acceso, [e.target.name] : e.target.value })
 
-  const recuperarDatos = e => { alert(`USER: ${USER} PASS: ${PASS}`) }
+  const recuperarDatos = () => { alert(`USER: ${USER} PASS: ${PASS}`) }
 
   return (
-    <>
+    <div className="tab-content">
       <div className="imgcontainer">
         <img src={user} alt="Avatar" className="avatar" />
       </div>
@@ -49,8 +49,9 @@ function Acceso() {
         ¿Olvidaste tu contraseña?
       </IonButton>
       </div>
-    </>
-  );
+      <br /><br /><br />
+    </div>
+  )
 }
 
 export default Acceso

@@ -5,20 +5,20 @@ import { IonButtons,
          IonPage,
          IonTitle,
          IonToolbar
-} from '@ionic/react';
-import { useContext } from 'react';
-import { useParams, useLocation } from 'react-router';
-import Productos from '../productos/Productos.jsx';
-import Acceso from '../acceso/Acceso.jsx';
-import Carrito from '../carrito/Carrito.jsx';
-import Panel from '../panel/Panel.jsx';
-import './Page.css';
-import context from '../../context/ThemeContext'
+} from '@ionic/react'
+import { useContext } from 'react'
+import { useParams, useLocation } from 'react-router'
+import Productos from './productos/Productos.jsx'
+import Acceso from './acceso/Acceso'
+import Carrito from './carrito/Carrito'
+import Panel from './panel/Panel.jsx'
+import './Page.css'
+import context from '../context/ThemeContext.js'
 
 const Page: React.FC = () => {
   let { estado } = useContext(context.ThemeContext)
-  const location = useLocation();
-  const { name } = useParams<{ name: string; }>();
+  const location = useLocation()
+  const { name } = useParams<{ name: string }>()
 
   const listadoProductos = () => {
     let db:any
@@ -56,14 +56,14 @@ const Page: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          <IonTitle className='ion-text-center'>{name}</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{name}</IonTitle>
+            <IonTitle className='ion-text-center' size="large">{name}</IonTitle>
           </IonToolbar>
         </IonHeader>
         <div style={{padding:'5%'}}>
@@ -74,7 +74,7 @@ const Page: React.FC = () => {
         </div>
       </IonContent>
     </IonPage>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

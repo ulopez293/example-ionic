@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import { useReducer } from 'react'
 import context from './ThemeContext'
 
 const initialState = context.initialState
