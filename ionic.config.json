@@ -1,0 +1,8 @@
+{
+  "name": "tiendaStrappberry",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "f8486f23"
+}
