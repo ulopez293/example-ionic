@@ -1,6 +1,4 @@
-import {
-  cardSharp, cardOutline
-} from 'ionicons/icons'
+import { cardSharp, cardOutline } from 'ionicons/icons'
 import { useState, useContext } from 'react'
 import { IonButton, IonIcon, IonImg, IonText, IonTitle, IonToolbar } from '@ionic/react'
 

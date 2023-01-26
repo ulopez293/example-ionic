@@ -1,6 +1,6 @@
 interface Producto {
     identificador: number
-    image: string
+    imagen: string
     nombre: string
     descripcion: string
     precio: number
