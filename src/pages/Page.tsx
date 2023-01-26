@@ -64,7 +64,7 @@ const Page: React.FC = () => {
             </IonToolbar>
           </IonHeader>
           : null}
-        <div style={{ padding: '5%' }}>
+        <div>
           {(location.pathname === "/page/Principal" && estado.login) ? <Productos getProductos={async () => await listadoProductos()} tipo="normal" /> : ''}
           {(location.pathname === "/page/Carrito" && estado.login) ? <Carrito /> : ''}
           {(location.pathname === "/page/Panel" && estado.login) ? <Panel listadoProductos={listadoProductos} /> : ''}

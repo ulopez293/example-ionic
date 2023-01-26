@@ -1,0 +1,53 @@
+.bg-color-morado {
+    background-color: #353c59;
+}
+
+.bg-color-rojo {
+    background-color: #d15253;
+}
+
+.bg-color-blanco {
+    background-color: #f0f1f5;
+}
+
+.bg-color-gris {
+    background-color: #686b75;
+}
+
+.color-morado {
+    color: #353c59;
+}
+
+.color-rojo {
+    color: #d15253;
+}
+
+.color-blanco {
+    color: #f0f1f5;
+}
+
+.color-gris {
+    color: #686b75;
+}
+
+a:link, a:visited, a:active {
+    text-decoration:none;
+}
+
+.m-1 {
+    margin: 3px;
+}
+.m-3 {
+    margin: 6px;
+}
+.m-5 {
+    margin: 9px;
+}
+
+.fondo-page {
+    position: absolute;
+    top: 90%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

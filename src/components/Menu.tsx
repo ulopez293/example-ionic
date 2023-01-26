@@ -40,7 +40,7 @@ const Menu: React.FC = (): JSX.Element => {
       type: "UPDATE_LOGIN",
       payload: false
     })
-    window.location.href = window.location.origin+'/page/Acceso'
+    window.location.href = window.location.origin + '/page/Acceso'
   }
   return (
     <IonMenu contentId="main" type="overlay">

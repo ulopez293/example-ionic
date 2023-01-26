@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useState } from 'react'
 import { IonButton } from '@ionic/react'
 import { useHistory } from "react-router-dom"
 import './Acceso.css'
-import user from './user.png'
+import logo from '../../img/logo.png'
 import context from '../../context/ThemeContext'
 
 function Acceso() {
@@ -21,27 +21,33 @@ function Acceso() {
   }
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => setAcceso({ ...acceso, [e.target.name]: e.target.value })
 
-  const recuperarDatos = () => { alert(`USER: ${USER} PASS: ${PASS}`) }
-
   return (
     <div className="tab-content">
-      <div className="imgcontainer">
-        <img src={user} alt="Avatar" className="avatar" />
+      <div className="imgcontainer bg-color-morado">
+        <img src={logo} alt="Avatar" className="avatar" />
       </div>
 
-      <div className="container">
-        <input onChange={handleInputChange}
-          type="text" placeholder="Email" name="user" required />
-        <input onChange={handleInputChange}
-          type="password" placeholder="Contraseña" name="pass" required />
+      <div className="bg-color-morado">
+        <div className="container-inputs">
+          <br /><br />
+          <input onChange={handleInputChange}
+            type="text" placeholder="Email" name="user" required />
+          <input onChange={handleInputChange}
+            type="password" placeholder="Contraseña" name="pass" required />
+          <br />
+        </div>
       </div>
       <div className="container">
-        <IonButton onClick={recuperarDatos} className="psw" style={{ float: 'right' }} color="tertiary">
+        <button onClick={validarLogin} className="psw bg-color-morado access-button" style={{ float: 'right' }}>
           Ingresar
-        </IonButton>
-        <IonButton onClick={validarLogin} color="primary">Acceso</IonButton>
+        </button>
       </div>
-      <br /><br /><br />
+      <div className="ion-text-center fondo-page" style={{ fontSize: 'large' }}>
+        <p><a href="#" className="color-gris m-5">¿Aún no tienes cuenta?</a></p>
+        <p><a href="#" className="color-morado m-5">Registrate</a></p>
+        <p className="color-gris" style={{ fontSize: 'medium' }}>Ubaldo Lopez | ulopez293@gmail.com</p>
+        <br /><br />
+      </div>
     </div>
   )
 }
