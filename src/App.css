@@ -45,9 +45,12 @@ a:link, a:visited, a:active {
 }
 
 .fondo-page {
-    position: absolute;
-    top: 90%;
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.cursor {
+    cursor: pointer;
 }

@@ -8,7 +8,6 @@ import Carrito from './carrito/Carrito'
 import Panel from './panel/Panel'
 import context from '../context/ThemeContext.js'
 import Producto from '../interfaces/Producto'
-import Menu from '../components/Menu'
 
 const Page: React.FC = () => {
   let { estado } = useContext(context.ThemeContext)

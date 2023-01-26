@@ -3,6 +3,7 @@ body {
 }
 
 /* Full-width input fields */
+input[type=email],
 input[type=text],
 input[type=password] {
   width: 100%;
