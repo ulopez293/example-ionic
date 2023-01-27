@@ -46,6 +46,7 @@
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
+    "android": "cross-env NODE_OPTIONS='--openssl-legacy-provider' ionic capacitor run android",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -68,7 +69,8 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^3.0.0"
+    "@capacitor/cli": "^3.0.0",
+    "cross-env": "^7.0.3"
   },
   "description": "An Ionic project"
 }
