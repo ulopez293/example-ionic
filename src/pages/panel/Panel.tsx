@@ -1,9 +1,9 @@
 import { useState, useEffect, ChangeEvent } from 'react'
-import { IonButton, IonImg, IonTextarea, IonInput, IonList, IonItemDivider, IonItem } from '@ionic/react'
+import { IonList, IonItem, IonLabel } from '@ionic/react'
 import './Panel.css'
 import Productos from '../productos/Productos'
 import Producto from '../../interfaces/Producto'
-
+import image from './image.png'
 interface PanelProps {
   listadoProductos: () => Promise<Array<Producto>>
 }
@@ -25,10 +25,7 @@ function Panel({ listadoProductos }: PanelProps) {
       setProductos(respuesta)
     }
     fetchData()
-    return () => {
-      setProductos([])
-      console.log("Limpiando Panel..")
-    }
+    return () => setProductos([])
   }, [])
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
@@ -73,7 +70,7 @@ function Panel({ listadoProductos }: PanelProps) {
     }
     let db: IDBDatabase
     let request = window.indexedDB.open("tiendaDatabase", 4)
-    request.onsuccess = function (event:any) {
+    request.onsuccess = function (event: any) {
       db = event.target.result
       let transaction = db.transaction(["productos"], "readwrite")
       transaction.onerror = function () {
@@ -101,34 +98,46 @@ function Panel({ listadoProductos }: PanelProps) {
   }
 
   return (
-    <>
-      <h5>Agregar Producto :</h5>
+    <div className="ion-text-center">
       <IonList>
-        <IonItemDivider>Imagen</IonItemDivider>
+        {(nuevoProducto.imagen === '') ?
+          <IonItem style={{ padding: '5%' }}>
+            <label htmlFor="file">
+              <div className="divImagen">
+                <img src={image} alt="loading" />
+                <p>Carga tu Imagen</p>
+              </div>
+            </label>
+            <input name="imagen" id="file" type="file" onChange={handleImage} accept="image/png, image/jpeg" style={{ display: 'none' }}></input>
+          </IonItem> :
+          <IonItem style={{ padding: '5%' }}>
+            <label htmlFor="file">
+              <div className="divImagen2">
+                <img src={nuevoProducto.imagen} alt="loading" />
+              </div>
+            </label>
+            <input name="imagen" id="file" type="file" onChange={handleImage} accept="image/png, image/jpeg" style={{ display: 'none' }}></input>
+          </IonItem>
+        }
         <IonItem>
-          <IonImg style={{ maxWidth: '40%', margin: '20px' }} src={nuevoProducto.imagen} />
-          <input name="imagen" type="file" onChange={handleImage} accept="image/png, image/jpeg"></input>
-        </IonItem>
-        <IonItemDivider>Nombre del Producto</IonItemDivider>
-        <IonItem>
-          <input name="nombre" onChange={handleInputChange} value={nuevoProducto.nombre}></input>
-        </IonItem>
-        <IonItemDivider>Descripcion</IonItemDivider>
-        <IonItem>
-          <textarea name="descripcion" onChange={handleInputChange} value={nuevoProducto.descripcion}></textarea>
-        </IonItem>
-        <IonItemDivider>Precio</IonItemDivider>
-        <IonItem>
-          <input name="precio" onChange={handleInputChange} type="number" value={nuevoProducto.precio}></input>
+          <IonLabel class="ion-text-wrap" style={{ fontSize: 'larger' }}>
+            <input name="nombre" placeholder="Nombre" onChange={handleInputChange} value={nuevoProducto.nombre}></input>
+            <br /><br />
+            <input name="precio" placeholder="Precio" onChange={handleInputChange} type="number" value={nuevoProducto.precio}></input>
+            <br /><br />
+            <input name="categoria" placeholder="Categoria"></input>
+            <br /><br />
+            <textarea name="descripcion" placeholder="Descripcion" onChange={handleInputChange} value={nuevoProducto.descripcion}></textarea>
+            <br /><br />
+          </IonLabel>
         </IonItem>
       </IonList>
-      <IonButton onClick={guardarProducto} color="success" expand="block" fill="solid" size="large">Guardar</IonButton>
+      <button onClick={guardarProducto} className='color-blanco bg-color-morado' style={{ fontSize: 'larger', width: '90%', borderRadius: '10px' }}>Guardar Producto</button>
       <br /><br />
       {
-        productos.length >= 1 ? <Productos productos={productos} tipo="administrador" />
-          : <h5>No hay productos registrados...</h5>
+        productos.length >= 1 ? <Productos productos={productos} tipo="administrador" /> : <h5>Administrador: No hay productos registrados...</h5>
       }
-    </>
+    </div>
   )
 }
 

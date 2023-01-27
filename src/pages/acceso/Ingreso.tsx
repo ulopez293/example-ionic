@@ -20,7 +20,7 @@ function Ingreso({ setRegistro }: IngresoProps) {
         console.log('entro')
         if (acceso.email === USER && acceso.password === PASS) {
             estadoAction({ type: "UPDATE_LOGIN", payload: true })
-            history.push("/page/Principal")
+            history.push("/page/Productos")
         } else {
             alert("Datos Incorrectos")
         }

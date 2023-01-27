@@ -22,7 +22,7 @@ function Registro({ setRegistro }: RegistroProps) {
         
         if (acceso.nombre === USER && acceso.password === PASS && confirmPassword === acceso.password) {
             estadoAction({ type: "UPDATE_LOGIN", payload: true })
-            history.push("/page/Principal")
+            history.push("/page/Productos")
         } else {
             alert("Datos Incorrectos")
         }

@@ -1,7 +1,6 @@
 import { trashOutline, trashSharp, addCircleSharp, addCircleOutline, closeSharp, closeOutline, createSharp, createOutline } from 'ionicons/icons'
 import { useState, useEffect, useContext } from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
-import { IonButton, IonIcon, IonImg, IonTitle, IonToolbar, IonItem, IonInput, IonText } from '@ionic/react'
+import { IonButton, IonIcon, IonImg, IonTitle, IonToolbar, IonText } from '@ionic/react'
 
 import './Producto.css'
 import ProductoInterface from '../../interfaces/Producto'

@@ -30,16 +30,20 @@
     color: #686b75;
 }
 
-a:link, a:visited, a:active {
-    text-decoration:none;
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
 }
 
 .m-1 {
     margin: 3px;
 }
+
 .m-3 {
     margin: 6px;
 }
+
 .m-5 {
     margin: 9px;
 }
@@ -53,4 +57,17 @@ a:link, a:visited, a:active {
 
 .cursor {
     cursor: pointer;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #e9e9ec;
+    border-radius: 10px;
+    font-size: large;
 }

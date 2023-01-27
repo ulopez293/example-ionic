@@ -2,7 +2,6 @@ import { IonApp, IonIcon, IonRouterOutlet, IonSplitPane, IonTabBar, IonTabButton
 import { IonReactRouter } from '@ionic/react-router'
 import { Redirect, Route } from 'react-router-dom'
 import { home, heart, person } from 'ionicons/icons'
-import Carrito from './pages/carrito/Carrito'
 import { ThemeContext } from './context/ThemeContext'
 import { useContext } from 'react'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -28,14 +27,9 @@ const App: React.FC = () => {
                   <Page />
                 </ProtectedRoute>
               </Route>
-              <Route exact path="/page/Carrito">
-                <ProtectedRoute auth={estado.login}>
-                  <Carrito />
-                </ProtectedRoute>
-              </Route>
             </IonRouterOutlet>
             <IonTabBar slot="bottom" style={{ display: estado.login ? '' : 'none' }}>
-              <IonTabButton tab="home" href="/page/Carrito">
+              <IonTabButton tab="home" href="/page/Productos">
                 <IonIcon icon={home} />
               </IonTabButton>
               <IonTabButton tab="heart" href="/tab1">

@@ -12,11 +12,10 @@ input[type=password] {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  background-color: rgb(229, 229, 229);
+  background: lightgray;
   border-radius: 10px;
   font-size: large;
 }
-
 /* Set a style for all buttons */
 button {
   background-color: #04AA6D;
@@ -161,4 +160,8 @@ span.psw {
   border-top-left-radius: 15%;
   background-color: rgb(255, 255, 255);
   padding: 5%;
+}
+
+input {
+  background: #e9e9ec;
 }

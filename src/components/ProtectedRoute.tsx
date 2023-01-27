@@ -6,15 +6,15 @@ interface ProtectedRouteProps {
 }
 
 function ProtectedRoute(props: ProtectedRouteProps) {
-  if (window.location.pathname === "/page/Principal" && !props.auth) {
+  if (decodeURI(window.location.pathname) === "/page/Productos" && !props.auth) {
     window.location.href = window.location.origin + '/page/Acceso'
     return <></>
   }
-  if (window.location.pathname === "/page/Carrito" && !props.auth) {
+  if (decodeURI(window.location.pathname) === "/page/Carrito" && !props.auth) {
     window.location.href = window.location.origin + '/page/Acceso'
     return <></>
   }
-  if (window.location.pathname === "/page/Panel" && !props.auth) {
+  if (decodeURI(window.location.pathname) === "/page/Agregar Producto" && !props.auth) {
     window.location.href = window.location.origin + '/page/Acceso'
     return <></>
   }
