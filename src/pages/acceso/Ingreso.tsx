@@ -18,14 +18,15 @@ function Ingreso({ setRegistro }: IngresoProps) {
 
     const validarLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log('entro')
         if (acceso.email === USER && acceso.password === PASS) {
             estadoAction({ type: "UPDATE_LOGIN", payload: true })
             estadoAction({ type: "UPDATE_TIPO_USUARIO", payload: Usuarios.Administrador })
             history.push("/page/Productos")
         } else {
-            alert("Datos Incorrectos")
-            alert('otro usario validar, pendiente funcion')
+            alert("Otro usuario pendiente funcion validar, se va a entrar de igual forma. Para entrar como admin: user@gmail.com , 1234")
+            estadoAction({ type: "UPDATE_LOGIN", payload: true })
+            estadoAction({ type: "UPDATE_TIPO_USUARIO", payload: Usuarios.Cliente })
+            history.push("/page/Productos")
         }
     }
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => setAcceso({ ...acceso, [e.target.name]: e.target.value })
