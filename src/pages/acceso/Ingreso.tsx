@@ -21,7 +21,7 @@ function Ingreso({ setRegistro }: IngresoProps) {
         console.log('entro')
         if (acceso.email === USER && acceso.password === PASS) {
             estadoAction({ type: "UPDATE_LOGIN", payload: true })
-            estadoAction({ type: "UPDATE_TIPO_USUARIO", payload: Usuarios.Cliente })
+            estadoAction({ type: "UPDATE_TIPO_USUARIO", payload: Usuarios.Administrador })
             history.push("/page/Productos")
         } else {
             alert("Datos Incorrectos")

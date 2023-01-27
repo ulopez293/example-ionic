@@ -1,10 +1,11 @@
 import { trashOutline, trashSharp, addCircleSharp, addCircleOutline, closeSharp, closeOutline, createSharp, createOutline } from 'ionicons/icons'
 import { useState, useEffect, useContext } from 'react'
 import { IonButton, IonIcon, IonImg, IonTitle, IonToolbar, IonText } from '@ionic/react'
-
 import './Producto.css'
 import ProductoInterface from '../../interfaces/Producto'
 import context from '../../context/ThemeContext'
+import DeleteElement from '../../interfaces/DeleteElement'
+import { eliminarElement } from '../../functions/eliminarElement'
 
 interface ProductoProps {
   key: number
@@ -13,10 +14,10 @@ interface ProductoProps {
 }
 
 function Producto({ tipo, producto }: ProductoProps) {
-  let [visible, setVisible] = useState(true)
-  let [renderProducto, setRenderProducto] = useState(producto)
+  let [visible, setVisible] = useState<boolean>(true)
+  let [renderProducto, setRenderProducto] = useState<ProductoInterface>(producto)
   let { estado, estadoAction } = useContext(context.ThemeContext)
-  let [cantidadProducto, setCantidadProducto] = useState(0)
+  let [cantidadProducto, setCantidadProducto] = useState<number>(0)
 
   useEffect(() => {
     if (estado.productos.length >= 1) {
@@ -30,13 +31,10 @@ function Producto({ tipo, producto }: ProductoProps) {
   }, [estado.productos])
 
   const agregarCarrito = () => {
-    estadoAction({
-      type: "UPDATE_CARRITO",
-      payload: ++estado.carrito
-    })
+    estadoAction({ type: "UPDATE_CARRITO", payload: ++estado.carrito })
 
     let tempProducto: ProductoInterface = producto
-    if (tempProducto.cantidad == 0) {
+    if (tempProducto.cantidad == undefined) {
       tempProducto.cantidad = cantidadProducto
     }
     tempProducto.cantidad++
@@ -50,26 +48,17 @@ function Producto({ tipo, producto }: ProductoProps) {
           temporalEstado[indice].cantidad = tempProducto.cantidad
         }
       }
-      estadoAction({
-        type: "UPDATE_PRODUCTOS",
-        payload: temporalEstado
-      })
+      estadoAction({ type: "UPDATE_PRODUCTOS", payload: temporalEstado })
     } else {
       let array = []
       array.push(tempProducto)
-      estadoAction({
-        type: "UPDATE_PRODUCTOS",
-        payload: array
-      })
+      estadoAction({ type: "UPDATE_PRODUCTOS", payload: array })
     }
   }
 
   const eliminarCarrito = () => {
     if (estado.carrito == 0) return
-    estadoAction({
-      type: "UPDATE_CARRITO",
-      payload: --estado.carrito
-    })
+    estadoAction({ type: "UPDATE_CARRITO", payload: --estado.carrito })
 
     let tempProducto: ProductoInterface = producto
     if (tempProducto.cantidad == undefined) {
@@ -87,36 +76,18 @@ function Producto({ tipo, producto }: ProductoProps) {
           temporalEstado[indice].cantidad = tempProducto.cantidad
         }
       }
-      estadoAction({
-        type: "UPDATE_PRODUCTOS",
-        payload: temporalEstado
-      })
+      estadoAction({ type: "UPDATE_PRODUCTOS", payload: temporalEstado })
     }
   }
 
   const eliminarRegistro = () => {
-    let db: IDBDatabase
-    let request: IDBOpenDBRequest = window.indexedDB.open("tiendaDatabase", 4)
-    request.onerror = function () { alert("Error al cargar Base de Datos.") }
-    request.onsuccess = function (event: any) {
-      db = event.target.result
-      let transaction = db.transaction(["productos"], "readwrite")
-        .objectStore("productos")
-        .delete(producto.identificador)
-      transaction.onsuccess = function () {
-        alert("Registro eliminado")
-        estadoAction({
-          type: "UPDATE_CARRITO",
-          payload: 0
-        })
-        estadoAction({
-          type: "UPDATE_PRODUCTOS",
-          payload: []
-        })
-        setVisible(false)
-      }
-      db.close()
+    const objectDelete: DeleteElement = {
+      seeableState: setVisible,
+      resetStateElements: estadoAction,
+      identifierForDelete: producto.identificador,
+      nameStoreElements: "productos",
     }
+    eliminarElement(objectDelete)
   }
 
   const editarRegistro = () => {
@@ -152,14 +123,8 @@ function Producto({ tipo, producto }: ProductoProps) {
         }
         transactionUpdate.onsuccess = function (event) {
           alert("Registro Actualizado")
-          estadoAction({
-            type: "UPDATE_CARRITO",
-            payload: 0
-          })
-          estadoAction({
-            type: "UPDATE_PRODUCTOS",
-            payload: []
-          })
+          estadoAction({ type: "UPDATE_CARRITO", payload: 0 })
+          estadoAction({ type: "UPDATE_PRODUCTOS", payload: [] })
           setRenderProducto({
             ...renderProducto,
             nombre: nombreProducto ?? renderProducto.nombre,

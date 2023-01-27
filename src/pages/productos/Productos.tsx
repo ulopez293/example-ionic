@@ -21,8 +21,6 @@ function Productos({ getProductos, productos, tipo }: ProductosProps) {
     return () => { setProductos([]) }
   }, [])
 
-  console.log(productosState)
-
   return (
     <div className="ion-text-center">
       {
