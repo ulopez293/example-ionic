@@ -7,19 +7,24 @@ const ThemeContext = context.ThemeContext
 const reducerTheme = (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_CARRITO':
-      return  {
-          ...state,
-          carrito: action.payload
+      return {
+        ...state,
+        carrito: action.payload
       }
     case 'UPDATE_LOGIN':
-      return  {
-          ...state,
-          login: action.payload
+      return {
+        ...state,
+        login: action.payload
       }
     case 'UPDATE_PRODUCTOS':
-      return  {
-            ...state,
-            productos: action.payload
+      return {
+        ...state,
+        productos: action.payload
+      }
+    case 'UPDATE_TIPO_USUARIO':
+      return {
+        ...state,
+        tipo_usuario: action.payload
       }
     default:
       return state

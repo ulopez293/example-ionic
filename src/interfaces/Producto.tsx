@@ -1,3 +1,4 @@
+import { Categorias } from "../constants/Categorias"
 interface Producto {
     identificador: number
     imagen: string
@@ -5,6 +6,7 @@ interface Producto {
     descripcion: string
     precio: number
     cantidad: number
+    categoria: Categorias
 }
 
 export default Producto

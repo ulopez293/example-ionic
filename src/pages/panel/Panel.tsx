@@ -4,20 +4,24 @@ import './Panel.css'
 import Productos from '../productos/Productos'
 import Producto from '../../interfaces/Producto'
 import image from './image.png'
+import { Categorias } from '../../constants/Categorias'
+import { guardarElement } from '../../functions/guardarElement'
+import SaveElement from '../../interfaces/SaveElement'
 interface PanelProps {
   listadoProductos: () => Promise<Array<Producto>>
 }
-
+let defaultState: Producto = {
+  identificador: Date.now(),
+  imagen: '',
+  nombre: '',
+  descripcion: '',
+  precio: 0,
+  cantidad: 0,
+  categoria: Categorias.Electronicos
+}
 function Panel({ listadoProductos }: PanelProps) {
   let [productos, setProductos] = useState<Producto[]>([])
-  let [nuevoProducto, setNuevoProducto] = useState<Producto>({
-    identificador: Date.now(),
-    imagen: '',
-    nombre: '',
-    descripcion: '',
-    precio: 0,
-    cantidad: 0,
-  })
+  let [nuevoProducto, setNuevoProducto] = useState<Producto>({...defaultState, identificador: Date.now() })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +32,7 @@ function Panel({ listadoProductos }: PanelProps) {
     return () => setProductos([])
   }, [])
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLSelectElement>) => {
     let re = new RegExp('^[0-9]')
     if (e.target.name === 'precio' && !re.test(e.target.value)) {
       e.target.value = String(nuevoProducto[e.target.name])
@@ -64,37 +68,16 @@ function Panel({ listadoProductos }: PanelProps) {
     }
   }
 
-  const guardarProducto = () => {
-    for (let [, valor] of Object.entries(nuevoProducto)) {
-      if (typeof valor === 'string' && valor.trim() === '') return;
+  const save = () => {
+    const saveObject: SaveElement<Producto> = {
+      newElement: nuevoProducto,
+      setDefaulStateToElement: setNuevoProducto,
+      setUpdatedElements: setProductos,
+      getElements: listadoProductos,
+      dataDefaultElement: {...defaultState, identificador: Date.now() },
+      nameStoreElements: "productos"
     }
-    let db: IDBDatabase
-    let request = window.indexedDB.open("tiendaDatabase", 4)
-    request.onsuccess = function (event: any) {
-      db = event.target.result
-      let transaction = db.transaction(["productos"], "readwrite")
-      transaction.onerror = function () {
-        alert("No se han podido agregar los datos, error transaccion.")
-      }
-      let objectStore = transaction.objectStore("productos")
-      let resultado = objectStore.add(nuevoProducto)
-      resultado.onsuccess = async function () {
-        setNuevoProducto({
-          identificador: Date.now(),
-          imagen: '',
-          nombre: '',
-          descripcion: '',
-          precio: 0,
-          cantidad: 0
-        })
-        alert("Datos agregados correctamente")
-        setProductos(await listadoProductos())
-      }
-      db.close()
-    }
-    request.onerror = function (event) {
-      alert("Error al cargar Base de Datos.")
-    }
+    guardarElement(saveObject)
   }
 
   return (
@@ -125,14 +108,20 @@ function Panel({ listadoProductos }: PanelProps) {
             <br /><br />
             <input name="precio" placeholder="Precio" onChange={handleInputChange} type="number" value={nuevoProducto.precio}></input>
             <br /><br />
-            <input name="categoria" placeholder="Categoria"></input>
+            <select name="categoria" value={nuevoProducto.categoria} onChange={handleInputChange}>
+              {Object.keys(Categorias).map((categoria) => (
+                <option key={categoria} value={categoria}>
+                  {categoria}
+                </option>
+              ))}
+            </select>
             <br /><br />
             <textarea name="descripcion" placeholder="Descripcion" onChange={handleInputChange} value={nuevoProducto.descripcion}></textarea>
             <br /><br />
           </IonLabel>
         </IonItem>
       </IonList>
-      <button onClick={guardarProducto} className='color-blanco bg-color-morado' style={{ fontSize: 'larger', width: '90%', borderRadius: '10px' }}>Guardar Producto</button>
+      <button onClick={save} className='color-blanco bg-color-morado' style={{ fontSize: 'larger', width: '90%', borderRadius: '10px' }}>Guardar Producto</button>
       <br /><br />
       {
         productos.length >= 1 ? <Productos productos={productos} tipo="administrador" /> : <h5>Administrador: No hay productos registrados...</h5>

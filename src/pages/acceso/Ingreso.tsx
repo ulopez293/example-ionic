@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom"
 import './Acceso.css'
 import context from '../../context/ThemeContext'
 import Usuario from '../../interfaces/Usuario'
+import { Usuarios } from '../../constants/Usuarios'
 
 interface IngresoProps {
     setRegistro: Dispatch<SetStateAction<boolean>>
@@ -20,9 +21,11 @@ function Ingreso({ setRegistro }: IngresoProps) {
         console.log('entro')
         if (acceso.email === USER && acceso.password === PASS) {
             estadoAction({ type: "UPDATE_LOGIN", payload: true })
+            estadoAction({ type: "UPDATE_TIPO_USUARIO", payload: Usuarios.Cliente })
             history.push("/page/Productos")
         } else {
             alert("Datos Incorrectos")
+            alert('otro usario validar, pendiente funcion')
         }
     }
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => setAcceso({ ...acceso, [e.target.name]: e.target.value })
